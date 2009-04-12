@@ -6,7 +6,13 @@ Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
 class Application < Sinatra::Base
   get '/' do
-    Poll.all.join(', ')
+    @polls = Poll.all
+    erb :get_polls
+  end
+
+  get '/:id' do
+    @poll = Poll.get(params[:id])
+    erb :get_poll
   end
 
   post '/' do

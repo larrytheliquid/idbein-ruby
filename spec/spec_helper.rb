@@ -3,6 +3,8 @@ require 'sinatra'
 require 'spec'
 require 'spec/interop/test'
 require 'rack/test'
+require 'webrat'
+require 'faker'
 
 # set test environment
 Sinatra::Base.set :environment, :test
@@ -13,8 +15,8 @@ require 'application'
 
 module Factory
   def poll_attributes(attributes={})
-    {:title => 'test poll',
-     :description => 'test description'
+    {:title => Faker::Lorem.sentence,
+     :description => Faker::Lorem.paragraph
     }.merge(attributes)
   end
   
@@ -23,7 +25,6 @@ module Factory
   end
 end
 
-require 'webrat'
 Spec::Runner.configure do |config|
   config.mock_with :mocha
   config.include Webrat::Matchers, :type => :views
