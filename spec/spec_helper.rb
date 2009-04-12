@@ -30,13 +30,6 @@ Spec::Runner.configure do |config|
   config.include Webrat::Matchers, :type => :views
   config.include Factory
 
-  config.before do
-    db = SERVER.database(COUCHDB)
-    db.create! rescue nil
-  end
-
-  config.after do
-    db = SERVER.database(COUCHDB)
-    db.delete! rescue nil
-  end
+  config.before { SERVER.database(COUCHDB).create! rescue nil }
+  config.after { SERVER.database(COUCHDB).delete! rescue nil }    
 end
