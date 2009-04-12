@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'sinatra'
-# require 'environment'
+require 'couchrest'
+require 'environment'
+Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
-class Poll < Sinatra::Base
+class Application < Sinatra::Base
   get '/' do
     'hello world'
   end

@@ -1,14 +1,16 @@
 require "#{File.dirname(__FILE__)}/spec_helper"
 
-describe 'GET /' do
+context 'Main list of polls' do
   include Rack::Test::Methods
-  
   def app
-    Poll.new
+    Application.new
   end
+  
+  describe 'GET /' do
+    subject { get '/' ; last_response }
 
-  it do
-    get '/'
-    last_response.should be_successful
+    it { should be_successful }
+    it { should contain('hello world') }
   end
 end
+
