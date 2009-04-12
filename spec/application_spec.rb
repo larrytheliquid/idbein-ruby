@@ -7,10 +7,33 @@ context 'Main list of polls' do
   end
   
   describe 'GET /' do
-    subject { get '/' ; last_response }
+    def do_get
+      Poll.new(:title => 'find me 1').save
+      Poll.new(:title => 'find me 2').save
+      get '/'
+    end
+    before { do_get }
 
-    it { should be_successful }
-    it { should contain('hello world') }
+    it { last_response.should be_successful }
+    
+    it 'should list all polls' do
+      last_response.should contain('find me 1')
+      last_response.should contain('find me 2')
+    end
+  end
+
+  describe 'POST / with valid attributes' do
+    def do_post(attributes={})
+      post '/', {:poll => poll_attributes(attributes)}
+    end
+
+    it { do_post; last_response.should be_redirect }
+
+    it 'should create a new post that shows up in the list' do
+      do_post(:title => 'find me')
+      follow_redirect!
+      last_response.should contain('find me')
+    end
   end
 end
 

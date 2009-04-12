@@ -15,8 +15,3 @@ describe Poll do
     new_poll(:title => nil).should_not be_valid
   end
 end
-
-def new_poll(attributes={})
-  Poll.new({:title => 'test poll',
-            :description => 'test description'}.merge(attributes))
-end
