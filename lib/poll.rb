@@ -5,6 +5,7 @@ class Poll < CouchRest::ExtendedDocument
   unique_id :permalink
   property :title
   property :description
+  timestamps!
 
   validates_present :title
 
