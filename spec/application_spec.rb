@@ -69,4 +69,17 @@ context 'Application resource' do
       last_response.should contain('Signup')
     end
   end
+
+  describe 'POST /users with valid attributes' do
+    def do_post(attributes={})
+      post '/users', {:user => user_attributes(attributes)}
+    end
+
+    it { do_post; last_response.should be_redirect }
+
+    it 'should redirect to /polls page' do
+      do_post(:title => 'Find me')
+      last_response.location.should == '/polls'
+    end
+  end
 end

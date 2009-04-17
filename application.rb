@@ -23,4 +23,9 @@ class Application < Sinatra::Base
   get '/users/new' do
     erb :get_users_new
   end
+
+  post '/users' do
+    User.new(params[:user]).save
+    redirect '/polls'
+  end
 end

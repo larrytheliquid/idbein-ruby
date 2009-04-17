@@ -23,6 +23,16 @@ module Factory
   def new_poll(attributes={})
     Poll.new(poll_attributes attributes)
   end
+
+  def user_attributes(attributes={})
+    {:username => Faker::Internet.user_name,
+     :email => Faker::Internet.email
+    }.merge(attributes)
+  end
+  
+  def new_user(attributes={})
+    User.new(user_attributes attributes)
+  end
 end
 
 Spec::Runner.configure do |config|
