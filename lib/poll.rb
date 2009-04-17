@@ -6,6 +6,7 @@ class Poll < CouchRest::ExtendedDocument
   property :title
   property :description
   property :threshold
+  property :votes
   timestamps!
 
   validates_present :title
@@ -16,5 +17,9 @@ class Poll < CouchRest::ExtendedDocument
 
   def threshold
     self[:threshold] || 5
+  end
+
+  def votes
+    self[:votes] || 0
   end
 end

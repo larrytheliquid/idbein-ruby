@@ -23,7 +23,7 @@ context 'Application resource' do
     end
   end
 
-  describe 'GET /polls/:poll' do
+  describe 'GET /polls/:id' do
     def do_get
       Poll.new(:title => 'Find me 1').save
       Poll.new(:title => 'Find me 2').save
@@ -53,6 +53,28 @@ context 'Application resource' do
       do_post(:title => 'Find me')
       follow_redirect!
       last_response.should contain('Find me')
+    end
+  end
+
+  describe 'PUT /polls/:id/votes/:username' do
+    def do_put
+      @poll = new_poll(:title => 'Vote me')
+      @poll.save
+      new_user(:username => 'larrytheliquid').save
+      put '/polls/vote-me/votes/larrytheliquid'
+    end
+
+    it { do_put; last_response.should be_successful }
+
+    it 'should inform that a successful vote was cast' do
+      do_put
+      last_response.should contain("larrytheliquid successfully voted for 'Vote me'")
+    end
+
+    it 'should increment the number of votes in the poll' do
+      pending 'User#vote!'
+      do_put
+      @poll.reload.votes.should == 1
     end
   end
 

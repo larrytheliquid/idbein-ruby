@@ -37,7 +37,6 @@ module Factory
 end
 
 Spec::Runner.configure do |config|
-  config.mock_with :mocha
   config.include Webrat::Matchers, :type => :views
   config.include Factory
 

@@ -11,7 +11,7 @@ describe Poll do
     end
   end
 
-  [:threshold].each do |attr|
+  [:threshold, :votes].each do |attr|
     it ".#{attr} should be an Integer reader" do
       new_poll.send(attr).should be_kind_of(Integer)
     end
@@ -21,8 +21,12 @@ describe Poll do
     new_poll(:title => nil).should_not be_valid
   end
 
-  it 'should be 5 by default' do
+  it 'should have a default threshold of 5' do
     Poll.new.threshold.should == 5
+  end
+
+  it 'should have a default votes of 0' do
+    Poll.new.votes.should == 0
   end
 
   context 'creating permalink id from title' do
