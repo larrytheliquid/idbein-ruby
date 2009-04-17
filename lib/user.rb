@@ -7,6 +7,5 @@ class User < CouchRest::ExtendedDocument
   property :email
   timestamps!
 
-  validates_present :username
-  validates_present :email  
+  validates_present :username, :email
 end

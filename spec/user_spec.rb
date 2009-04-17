@@ -6,8 +6,8 @@ describe User do
   end
 
   [:username, :email].each do |attr|
-    it ".#{attr} should be a reader" do
-      lambda { new_user.send(attr) }.should_not raise_error
+    it ".#{attr} should be a String reader" do
+      new_user.send(attr).should be_kind_of(String)
     end
   end
 

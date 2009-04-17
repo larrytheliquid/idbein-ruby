@@ -16,7 +16,8 @@ require 'application'
 module Factory
   def poll_attributes(attributes={})
     {:title => Faker::Lorem.sentence,
-     :description => Faker::Lorem.paragraph
+     :description => Faker::Lorem.paragraph,
+     :threshold => rand(10) + 1
     }.merge(attributes)
   end
   

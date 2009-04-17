@@ -5,11 +5,16 @@ class Poll < CouchRest::ExtendedDocument
   unique_id :permalink
   property :title
   property :description
+  property :threshold
   timestamps!
 
   validates_present :title
 
   def permalink
-    title.downcase.split(' ').join('-')
+    self[:id] || title.downcase.split(' ').join('-')
+  end
+
+  def threshold
+    self[:threshold] || 5
   end
 end
