@@ -23,7 +23,7 @@ context 'Application resource' do
     end
   end
 
-  describe 'GET /polls/:id' do
+  describe 'GET /polls/:permalink' do
     def do_get
       Poll.new(:title => 'Find me 1').save
       Poll.new(:title => 'Find me 2').save
@@ -56,7 +56,7 @@ context 'Application resource' do
     end
   end
 
-  describe 'PUT /polls/:id/votes/:username' do
+  describe 'PUT /polls/:permalink/votes/:username' do
     def do_put
       @poll = new_poll(:title => 'Vote me')
       @poll.save

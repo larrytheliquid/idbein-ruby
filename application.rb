@@ -10,13 +10,13 @@ class Application < Sinatra::Base
     erb :get_polls
   end
 
-  get '/polls/:id' do
-    @poll = Poll.get(params[:id])
+  get '/polls/:permalink' do
+    @poll = Poll.get(params[:permalink])
     erb :get_polls_show
   end
 
-  put '/polls/:id/votes/:username' do
-    @poll = Poll.get(params[:id])
+  put '/polls/:permalink/votes/:username' do
+    @poll = Poll.get(params[:permalink])
     @user = User.get(params[:username])
     "#{@user.username} successfully voted for '#{@poll.title}'"
   end
