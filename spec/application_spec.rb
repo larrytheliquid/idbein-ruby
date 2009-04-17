@@ -1,15 +1,15 @@
 require "#{File.dirname(__FILE__)}/spec_helper"
 
-context 'Polls resource' do
+context 'Application resource' do
   include Rack::Test::Methods
   def app() Application.new end
   
-  describe 'GET /' do
+  describe 'GET /polls' do
     def do_get
       Poll.new(:title => 'Find me 1').save
       Poll.new(:title => 'Find me 2').save
       Poll.new(:title => 'Find me 3').save      
-      get '/'
+      get '/polls'
     end
     before { do_get }
 
@@ -23,12 +23,12 @@ context 'Polls resource' do
     end
   end
 
-  describe 'GET /:poll' do
+  describe 'GET /polls/:poll' do
     def do_get
       Poll.new(:title => 'Find me 1').save
       Poll.new(:title => 'Find me 2').save
       Poll.new(:title => 'Find me 3').save      
-      get '/find-me-2'
+      get '/polls/find-me-2'
     end
     before { do_get }
 
@@ -42,9 +42,9 @@ context 'Polls resource' do
     end
   end
 
-  describe 'POST / with valid attributes' do
+  describe 'POST /polls with valid attributes' do
     def do_post(attributes={})
-      post '/', {:poll => poll_attributes(attributes)}
+      post '/polls', {:poll => poll_attributes(attributes)}
     end
 
     it { do_post; last_response.should be_redirect }
@@ -55,5 +55,18 @@ context 'Polls resource' do
       last_response.should contain('Find me')
     end
   end
-end
 
+  describe 'GET /users/new' do
+    def do_get
+      get '/users/new'
+    end
+    before { do_get }
+
+    it { last_response.should be_successful }
+    it { last_response.should have_selector('html') }
+    
+    it 'should return a signup form for users' do
+      last_response.should contain('Signup')
+    end
+  end
+end

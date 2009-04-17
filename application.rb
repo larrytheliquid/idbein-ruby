@@ -5,18 +5,22 @@ require 'environment'
 Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
 class Application < Sinatra::Base
-  get '/' do
+  get '/polls' do
     @polls = Poll.all
     erb :get_polls
   end
 
-  get '/:id' do
+  get '/polls/:id' do
     @poll = Poll.get(params[:id])
-    erb :get_poll
+    erb :get_polls_show
   end
 
-  post '/' do
+  post '/polls' do
     Poll.new(params[:poll]).save
-    redirect '/'
+    redirect '/polls'
+  end
+
+  get '/users/new' do
+    erb :get_users_new
   end
 end
