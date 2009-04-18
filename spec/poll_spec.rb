@@ -5,7 +5,7 @@ describe Poll do
     new_poll.should be_valid
   end
 
-  [:title, :description].each do |attr|
+  [:title, :description, :user_id].each do |attr|
     it ".#{attr} should be a String reader" do
       new_poll.send(attr).should be_kind_of(String)
     end
@@ -19,6 +19,10 @@ describe Poll do
 
   it 'should require a title' do
     new_poll(:title => nil).should_not be_valid
+  end
+
+  it 'should require a user_id' do
+    new_poll(:user_id => nil).should_not be_valid
   end
 
   it 'should have a default threshold of 5' do

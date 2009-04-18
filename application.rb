@@ -7,7 +7,7 @@ Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 class Application < Sinatra::Base
   helpers do
    def partial(page, options={})
-     erb :"_#{page}", options.merge!(:layout => false)
+     erb :"_#{page}", options.merge(:layout => false)
    end
   end
       
@@ -27,9 +27,10 @@ class Application < Sinatra::Base
   end
 
   put '/polls/:permalink/votes/:username' do
-    @poll = Poll.get(params[:permalink])
-    @user = User.get(params[:username])
-    "#{@user.username} successfully voted for '#{@poll.title}'"
+   poll = Poll.get(params[:permalink])
+   user = User.get(params[:username])
+   user.vote! poll
+   "#{user.username} successfully voted for '#{poll.title}'"
   end
 
   get '/users/new' do

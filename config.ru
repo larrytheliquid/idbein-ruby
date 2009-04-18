@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'application'
 set :run, false
 set :environment, :development
 set :static, true
-require 'application'
 run Application
 

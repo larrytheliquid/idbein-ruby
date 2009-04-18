@@ -2,9 +2,11 @@ require 'faker'
 
 module Factory
   def poll_attributes(attributes={})
-    {:title => Faker::Lorem.sentence,
+    user = new_user; user.save
+    {:title => Faker::Lorem.sentence.chomp('.'),
+     :user_id => user.id,
      :description => Faker::Lorem.paragraph,
-     :threshold => rand(10) + 1
+     :threshold => rand(10).next
     }.merge(attributes)
   end
   

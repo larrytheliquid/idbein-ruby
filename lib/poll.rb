@@ -4,12 +4,13 @@ class Poll < CouchRest::ExtendedDocument
 
   unique_id :permalink
   property :title
+  property :user_id
   property :description
   property :threshold
   property :votes_count
   timestamps!
 
-  validates_present :title
+  validates_present :title, :user_id
 
   def permalink
     self[:id] || title.downcase.split(' ').join('-')

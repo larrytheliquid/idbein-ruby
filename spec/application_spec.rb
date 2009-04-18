@@ -6,9 +6,9 @@ context 'Application resource' do
   
   describe 'GET /polls' do
     def do_get
-      Poll.new(:title => 'Find me 1').save
-      Poll.new(:title => 'Find me 2').save
-      Poll.new(:title => 'Find me 3').save      
+      new_poll(:title => 'Find me 1').save
+      new_poll(:title => 'Find me 2').save
+      new_poll(:title => 'Find me 3').save      
       get '/polls'
     end
     before { do_get }
@@ -25,9 +25,9 @@ context 'Application resource' do
 
   describe 'GET /polls/:permalink' do
     def do_get
-      Poll.new(:title => 'Find me 1').save
-      Poll.new(:title => 'Find me 2').save
-      Poll.new(:title => 'Find me 3').save      
+      new_poll(:title => 'Find me 1').save
+      new_poll(:title => 'Find me 2').save
+      new_poll(:title => 'Find me 3').save      
       get '/polls/find-me-2'
     end
     before { do_get }
@@ -72,7 +72,6 @@ context 'Application resource' do
     end
 
     it 'should increment the number of votes in the poll' do
-      pending 'User#vote!'
       do_put
       Poll.get(@poll.id).votes_count.should == 1
     end
