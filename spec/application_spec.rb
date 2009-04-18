@@ -22,6 +22,17 @@ context 'Application resource' do
       last_response.should contain('Find me 3')      
     end
   end
+  
+  describe 'GET /polls/new' do
+    def do_get
+      get '/polls/new'
+    end
+    before { do_get }
+  
+    it { last_response.should be_successful }
+    it { last_response.should have_selector('html') }
+    it { last_response.should contain('Add') }
+  end
 
   describe 'GET /polls/:permalink' do
     def do_get
