@@ -9,15 +9,15 @@ class Application < Sinatra::Base
   set :root, File.dirname(__FILE__)
   
   helpers do
-   def partial(page, options={})
-     erb :"_#{page}", options.merge(:layout => false)
-   end
+    def partial(page, options={})
+      erb :"_#{page}", options.merge(:layout => false)
+    end
 
-   def current_user
-     User.all.last
-   end
+    def current_user
+      User.all.last
+    end
   end
-      
+  
   get '/polls' do
     @polls = Poll.by_updated_at
     erb :get_polls
@@ -29,15 +29,17 @@ class Application < Sinatra::Base
   end
 
   post '/polls' do
-    Poll.new(params[:poll]).save
+    poll = Poll.new params[:poll]
+    poll.user_id = current_user.id
+    poll.save!
     redirect '/polls'
   end
 
   post '/polls/:permalink/votes/:username' do
-   poll = Poll.get(params[:permalink])
-   user = User.get(params[:username])
-   user.vote! poll
-   "#{user.username} successfully voted for '#{poll.title}'"
+    poll = Poll.get(params[:permalink])
+    user = User.get(params[:username])
+    user.vote! poll
+    "#{user.username} successfully voted for '#{poll.title}'"
   end
 
   get '/users/new' do
@@ -45,7 +47,7 @@ class Application < Sinatra::Base
   end
 
   post '/users' do
-    User.new(params[:user]).save
+    User.new(params[:user]).save!
     redirect '/polls'
   end
 end
