@@ -16,6 +16,10 @@ class Application < Sinatra::Base
     def current_user
       User.all.last
     end
+
+    def voted_fragment(permalink, username)
+      %s{<esi:include src="/polls/#{permalink}/votes/#{username}.fragment"/>}
+    end
   end
   
   get '/polls' do
@@ -35,7 +39,15 @@ class Application < Sinatra::Base
     redirect '/polls'
   end
 
-  post '/polls/:permalink/votes/:username' do
+  get '/polls/:permalink/votes/:username.fragment' do
+    @poll = Poll.get params[:permalink]
+    vote = Vote.new(:user_id => params[:username],
+                    :poll_id => params[:permalink])
+    @voted = Vote.get(vote.vote_hash) rescue false
+    erb :get_polls_votes_show, :layout => false
+  end
+
+  put '/polls/:permalink/votes/:username' do
     poll = Poll.get(params[:permalink])
     user = User.get(params[:username])
     user.vote! poll
