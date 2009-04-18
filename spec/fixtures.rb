@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'sinatra'
 require 'application'
 require 'spec/factory'
 include Factory
