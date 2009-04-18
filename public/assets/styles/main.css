@@ -31,7 +31,7 @@ body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; backgro
 .checkbox .novote { background-image: url('../images/checkbox-off.png'); width: 84px; height: 84px; margin-top: 20px; }
 .checkbox .vote-desc { margin-top: -5px; font-weight: bold; font-size: 10pt; color: #6da103; }
 .info { float: left; width: 406px; height: 125px; margin-left: 10px; }
-.info .title { font-size: 24pt; font-weight: bold; color: black; }
+.info .title { font-size: 18pt; font-weight: bold; color: black; }
 .info .about { clear:both; font-size: 11pt; margin-top: .5em; color: #202020; }
 .info .misc-info { width: 100%; font-size: 9pt; border-bottom: gray thin solid; height: 10px; }
 .info .misc-info .time { float: left; }
