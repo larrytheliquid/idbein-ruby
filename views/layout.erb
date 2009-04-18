@@ -7,63 +7,7 @@
 		<script src="lib/jquery/jquery-1.3.2.js"></script>
         <title>idbe.in</title>
 		
-		<script type="text/javascript">
-			//function $(id)
-			//{
-			//	return document.getElementById(id);
-			//}
-			function hilite(element)
-			{
-				element.style.backgroundColor = '#eeeeee';
-			}
-			
-			function unhilite(element)
-			{
-				element.style.backgroundColor = "#dddddd";
-			}
-			
-			function handleClick(permalink, username)
-			{
-				//alert(permalink);
-				//alert(username);
-				//alert($)
-				var url = '/polls/' + permalink + '/votes/' + username;
-				$.ajax({
-        			type: 'post',
-        			url: url,
-        			success: handleClickSuccess(permalink)
-        			//dataType: type
-        		});
-			}
-			
-			function handleClickSuccess(permalink)
-			{
-				//alert('bugs');
-				var item = $("#" + permalink)[0];
-				var checkImage = $("#cb_i_" + permalink)[0];
-				var checkMsg = $("#cb_m_" + permalink)[0];
-				checkMsg.innerHTML = "I'm in!";
-				checkImage.className = 'voted';
-			}
-			
-			function togglePoll()
-			{
-				var f = $('#add-poll-form')[0];
-				f.style.display = f.style.display == "none" || f.style.display == "" ? "block" : "none";
-			}
-			
-			function submitNewPoll()
-			{
-				$.ajax({
-    				type: "POST",
-					url: "bin/process.php",
-					data: 'abc',
-					success: function() {
-						alert('success');
-					}
-				});
-			}
-		</script>
+		<script type="text/javascript" src="includes/main.js"></script>
     </head>
     <body>
     	<div id="header">
@@ -93,43 +37,7 @@
 				</p>
 			</div>
 			<div id="content">
-				<a id="add-poll" href="javascript:togglePoll();">+ Add a Poll</a>
-				<form id="add-poll-form" name="add-poll" action="/polls" method="post">
-					<table>
-						<tr>
-							<td>
-								Listing Name:
-							</td>
-							<td>
-								<input type="text" name="poll[title]" value="a" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Description:
-							</td>
-							<td>
-								<textarea name="poll[description]" rows="5" cols="50">b</textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Threshold:
-							</td>
-							<td>
-								<input type="text" name="poll[threshold]" value="1" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								&nbsp;
-							</td>
-							<td>
-								<input onclick="submitNewPoll();" type="submit" name="submit" value="Add Poll" />
-							</td>
-						</tr>
-					</table>
-				</form>
+				<a id="add-poll" href="add.html">+ Add a Poll</a>
 				<%= yield %>
 			</div>
 		</div>
