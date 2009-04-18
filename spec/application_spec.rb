@@ -56,7 +56,40 @@ context 'Application resource' do
     end
   end
 
-  # TODO: Change back to PUT by getting _method to work
+  # TODO: add .fragment
+  describe 'GET /polls/:permalink/votes/:username.fragment' do
+    def do_get
+      get '/polls/vote-me/votes/larrytheliquid.fragment'
+    end
+    
+    before do
+      @poll = new_poll(:title => 'Vote me'); @poll.save
+      @user = new_user(:username => 'larrytheliquid'); @user.save
+    end
+
+    context 'when a poll has not been voted for' do
+      before { do_get }
+
+      it { last_response.should be_successful }
+
+      it 'should return novote markup fragment' do
+        last_response.should have_selector(:div, :class => 'novote')
+        last_response.should contain("I'm not in")
+      end      
+    end
+
+    context 'when a poll has already been voted for' do
+      before { @user.vote!(@poll); do_get }
+
+      it { last_response.should be_successful }
+
+      it 'should return voted markup fragment' do
+        last_response.should have_selector(:div, :class => 'voted')
+        last_response.should contain("I'm in!")
+      end            
+    end
+  end
+
   describe 'PUT /polls/:permalink/votes/:username' do
     before do
       @poll = new_poll(:title => 'Vote me')
@@ -65,7 +98,7 @@ context 'Application resource' do
     end
     
     def do_put
-      post '/polls/vote-me/votes/larrytheliquid'
+      put '/polls/vote-me/votes/larrytheliquid'
     end
 
     context 'when a poll has not been voted for' do
