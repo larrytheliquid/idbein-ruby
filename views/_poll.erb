@@ -1,5 +1,5 @@
 <div class="item" id="<%= poll.id %>" onclick="handleClick('<%= poll.id %>', '<%= poll.user_id %>');" onmouseover="hilite($('#<%= poll.id %>')[0]);" onmouseout="unhilite($('#<%= poll.id %>')[0]);">
-					<div class="votes"><div class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div></div>
+					<div class="votes"><div id="cb_v_<%= poll.id %>" class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div></div>
 					<div class="checkbox">
 						<div id="cb_i_<%= poll.id %>" class="novote"></div>
 						<div id="cb_m_<%= poll.id %>" class="vote-desc">I'm not in</div>

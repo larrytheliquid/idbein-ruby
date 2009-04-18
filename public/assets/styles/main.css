@@ -52,4 +52,4 @@ a:active { color: white; }
 a:hover { color: #0367fc; }
 
 /** forms: **/
-#add-poll-form { position: absolute; right: 0; top: 0; display: block; border: thin solid black; background-color: white; width: 500px;}
+#add-poll-form { }
