@@ -19,7 +19,7 @@ class Application < Sinatra::Base
   end
       
   get '/polls' do
-    @polls = Poll.all
+    @polls = Poll.by_updated_at
     erb :get_polls
   end
 

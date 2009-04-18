@@ -12,6 +12,8 @@ class Poll < CouchRest::ExtendedDocument
 
   validates_present :title, :user_id
 
+  view_by :updated_at, :descending => true
+
   def permalink
     self[:id] || title.downcase.split(' ').join('-')
   end

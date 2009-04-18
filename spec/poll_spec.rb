@@ -53,3 +53,12 @@ describe Poll do
     end
   end
 end
+
+describe Poll, '.by_updated_at' do
+  it 'should order by created_at descending' do
+    old = new_poll; old.save
+    sleep(1)
+    recent = new_poll; recent.save
+    Poll.by_updated_at.first.should == Poll.get(recent.id)
+  end
+end
