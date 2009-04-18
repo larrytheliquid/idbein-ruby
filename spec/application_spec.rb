@@ -74,7 +74,7 @@ context 'Application resource' do
     it 'should increment the number of votes in the poll' do
       pending 'User#vote!'
       do_put
-      @poll.reload.votes.should == 1
+      Poll.get(@poll.id).votes_count.should == 1
     end
   end
 

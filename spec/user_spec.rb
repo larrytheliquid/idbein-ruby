@@ -25,3 +25,16 @@ describe User do
     user.id.should == 'larrytheliquid'
   end
 end
+
+describe User, '#vote!' do
+  before do
+    @user = new_user; @user.save
+    @poll = new_poll; @poll.save
+  end
+  
+  it 'should increment Poll#votes_count' do
+    @user.vote!(@poll)
+    Poll.get(@poll.id).votes_count.should == 1
+    Vote.all.first.user_id.should == @user.id
+  end
+end

@@ -8,4 +8,10 @@ class User < CouchRest::ExtendedDocument
   timestamps!
 
   validates_present :username, :email
+
+  def vote!(poll)
+    Vote.new(:user_id => self.id, :poll_id => poll.id).save
+    poll.votes_count += 1
+    poll.save
+  end
 end

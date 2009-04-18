@@ -15,15 +15,15 @@ class Application < Sinatra::Base
     erb :get_polls_show
   end
 
+  post '/polls' do
+    Poll.new(params[:poll]).save
+    redirect '/polls'
+  end
+
   put '/polls/:permalink/votes/:username' do
     @poll = Poll.get(params[:permalink])
     @user = User.get(params[:username])
     "#{@user.username} successfully voted for '#{@poll.title}'"
-  end
-
-  post '/polls' do
-    Poll.new(params[:poll]).save
-    redirect '/polls'
   end
 
   get '/users/new' do
