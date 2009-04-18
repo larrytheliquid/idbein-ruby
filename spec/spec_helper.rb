@@ -22,7 +22,7 @@ module Factory
   end
   
   def new_poll(attributes={})
-    Poll.new(poll_attributes attributes)
+    Poll.new poll_attributes(attributes)
   end
 
   def user_attributes(attributes={})
@@ -32,7 +32,7 @@ module Factory
   end
   
   def new_user(attributes={})
-    User.new(user_attributes attributes)
+    User.new user_attributes(attributes)
   end
 
   def vote_attributes(attributes={})
@@ -44,7 +44,7 @@ module Factory
   end
   
   def new_vote(attributes={})
-    Vote.new(vote_attributes attributes)
+    Vote.new vote_attributes(attributes)
   end
   
 
