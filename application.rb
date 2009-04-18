@@ -1,10 +1,13 @@
 require 'rubygems'
-require 'sinatra'
+require 'sinatra/base'
 require 'couchrest'
 require 'environment'
 Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
 class Application < Sinatra::Base
+  enable :static
+  set :root, File.dirname(__FILE__)
+  
   helpers do
    def partial(page, options={})
      erb :"_#{page}", options.merge(:layout => false)

@@ -8,9 +8,14 @@
 						<div class="title"><%= poll.title %></div>
 						<div class="misc-info">
 							<div class="time"></div>
-							<div class="author">Submitted by <strong>dnsdude</strong></div>
+							<div class="author">Submitted by <strong><%= poll.user_id %></strong></div>
 						</div>
 						<div class="about"><%= poll.description %></div>
 						
 					</div>
 				</div>
+				
+				<form action="/polls/<%= poll.id %>/votes/<%= current_user.id %>" method="post">
+				<!-- <input type="hidden" value="put" name="_method"/> -->
+				<input type="submit" value="put"/>
+				</form>
