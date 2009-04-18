@@ -9,6 +9,10 @@ class Application < Sinatra::Base
    def partial(page, options={})
      erb :"_#{page}", options.merge(:layout => false)
    end
+
+   def current_user
+     User.all.last
+   end
   end
       
   get '/polls' do
