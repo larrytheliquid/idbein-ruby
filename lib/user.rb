@@ -10,8 +10,11 @@ class User < CouchRest::ExtendedDocument
   validates_present :username, :email
 
   def vote!(poll)
-    Vote.new(:user_id => self.id, :poll_id => poll.id).save
-    poll.votes_count += 1
-    poll.save
+    vote = Vote.new(:user_id => self.id, :poll_id => poll.id)
+    unless (Vote.get(vote.vote_hash) rescue nil)
+      vote.save
+      poll.votes_count += 1
+      poll.save
+    end
   end
 end

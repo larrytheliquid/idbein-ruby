@@ -56,24 +56,44 @@ context 'Application resource' do
     end
   end
 
+  # TODO: Change back to PUT by getting _method to work
   describe 'PUT /polls/:permalink/votes/:username' do
-    def do_put
+    before do
       @poll = new_poll(:title => 'Vote me')
       @poll.save
       new_user(:username => 'larrytheliquid').save
-      put '/polls/vote-me/votes/larrytheliquid'
+    end
+    
+    def do_put
+      post '/polls/vote-me/votes/larrytheliquid'
     end
 
-    it { do_put; last_response.should be_successful }
+    context 'when a poll has not been voted for' do
+      it { do_put; last_response.should be_successful }
 
-    it 'should inform that a successful vote was cast' do
-      do_put
-      last_response.should contain("larrytheliquid successfully voted for 'Vote me'")
+      it 'should inform that a successful vote was cast' do
+        do_put
+        last_response.should contain("larrytheliquid successfully voted for 'Vote me'")
+      end
+
+      it 'should increment the number of votes in the poll' do
+        do_put
+        Poll.get(@poll.id).votes_count.should == 1
+      end
     end
 
-    it 'should increment the number of votes in the poll' do
-      do_put
-      Poll.get(@poll.id).votes_count.should == 1
+    context 'when a poll has already been voted for' do
+      it { 2.times { do_put }; last_response.should be_successful }
+
+      it 'should inform that a successful vote was cast' do
+        2.times { do_put }
+        last_response.should contain("larrytheliquid successfully voted for 'Vote me'")
+      end
+
+      it 'should not increment the number of votes in the poll' do
+        2.times { do_put }
+        Poll.get(@poll.id).votes_count.should == 1
+      end
     end
   end
 

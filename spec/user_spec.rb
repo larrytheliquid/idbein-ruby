@@ -32,8 +32,14 @@ describe User, '#vote!' do
     @poll = new_poll; @poll.save
   end
   
-  it 'should increment Poll#votes_count' do
+  it 'should increment Poll#votes_count if vote has not been cast' do
     @user.vote!(@poll)
+    Poll.get(@poll.id).votes_count.should == 1
+    Vote.all.first.user_id.should == @user.id
+  end
+
+  it 'should not increment Poll#votes_count if vote has already been cast' do
+    2.times { @user.vote!(@poll) }
     Poll.get(@poll.id).votes_count.should == 1
     Vote.all.first.user_id.should == @user.id
   end

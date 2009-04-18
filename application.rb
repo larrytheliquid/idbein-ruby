@@ -33,7 +33,7 @@ class Application < Sinatra::Base
     redirect '/polls'
   end
 
-  put '/polls/:permalink/votes/:username' do
+  post '/polls/:permalink/votes/:username' do
    poll = Poll.get(params[:permalink])
    user = User.get(params[:username])
    user.vote! poll

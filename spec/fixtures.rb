@@ -2,6 +2,5 @@ require 'application'
 require 'spec/factory'
 include Factory
 
-SERVER.database(COUCHDB).delete!
-SERVER.database(COUCHDB).create!
+SERVER.database(COUCHDB).recreate!
 20.times { new_vote.save }
