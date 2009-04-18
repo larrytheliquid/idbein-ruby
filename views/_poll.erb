@@ -1,8 +1,8 @@
-<div class="item" id="<%= poll.id %>" onclick="handleClick($('<%= poll.id %>'));" onmouseover="hilite($('<%= poll.id %>'));" onmouseout="unhilite($('<%= poll.id %>'));">
+<div class="item" id="<%= poll.id %>" onclick="handleClick('<%= poll.id %>', '<%= poll.user_id %>');" onmouseover="hilite($('#<%= poll.id %>')[0]);" onmouseout="unhilite($('#<%= poll.id %>')[0]);">
 					<div class="votes"><div class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div></div>
 					<div class="checkbox">
-						<div class="voted"></div>
-						<div class="vote-desc">I'm in</div>
+						<div id="cb_i_<%= poll.id %>" class="novote"></div>
+						<div id="cb_m_<%= poll.id %>" class="vote-desc">I'm not in</div>
 					</div>
 					<div class="info">
 						<div class="title"><%= poll.title %></div>
@@ -16,6 +16,6 @@
 				</div>
 				
 				<form action="/polls/<%= poll.id %>/votes/<%= current_user.id %>" method="post">
-				<!-- <input type="hidden" value="put" name="_method"/> -->
+				<input type="hidden" value="put" name="_method"/>
 				<input type="submit" value="put"/>
 				</form>

@@ -28,6 +28,7 @@ body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; backgro
 .votes .threshold { float: left; margin-top: 70px; font-size: 25px; }
 .checkbox { float: left; width: 84px; height: 125px; text-align: center; }
 .checkbox .voted { background-image: url('../images/checkbox-on.png'); width: 84px; height: 84px; margin-top: 20px; }
+.checkbox .novote { background-image: url('../images/checkbox-off.png'); width: 84px; height: 84px; margin-top: 20px; }
 .checkbox .vote-desc { margin-top: -5px; font-weight: bold; font-size: 10pt; color: #6da103; }
 .info { float: left; width: 406px; height: 125px; margin-left: 10px; }
 .info .title { font-size: 26pt; }
@@ -49,3 +50,6 @@ a:visited { color: #055cbd; }
 a:link { color: #055cdb; }
 a:active { color: white; }
 a:hover { color: #0367fc; }
+
+/** forms: **/
+#add-poll-form { display: none; border: thin solid black; background-color: white; width: 500px;}
