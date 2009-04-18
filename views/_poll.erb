@@ -1,0 +1,16 @@
+<div class="item" id="<%= poll.id %>" onclick="handleClick($('<%= poll.id %>'));" onmouseover="hilite($('<%= poll.id %>'));" onmouseout="unhilite($('<%= poll.id %>'));">
+					<div class="votes"><div class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div></div>
+					<div class="checkbox">
+						<div class="voted"></div>
+						<div class="vote-desc">I'm in</div>
+					</div>
+					<div class="info">
+						<div class="title"><%= poll.title %></div>
+						<div class="misc-info">
+							<div class="time"></div>
+							<div class="author">Submitted by <strong>dnsdude</strong></div>
+						</div>
+						<div class="about"><%= poll.description %></div>
+						
+					</div>
+				</div>

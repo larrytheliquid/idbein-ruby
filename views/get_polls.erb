@@ -1,4 +1,4 @@
-<% @polls.each do |pole| %>
-  <%= pole.title %>
-  <%= pole.description %>
+
+<% @polls.each do |poll| %>
+  <%= partial :poll, :locals => {:poll => poll} %>
 <% end %>

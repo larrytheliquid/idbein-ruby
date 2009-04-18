@@ -5,6 +5,12 @@ require 'environment'
 Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
 class Application < Sinatra::Base
+  helpers do
+   def partial(page, options={})
+     erb :"_#{page}", options.merge!(:layout => false)
+   end
+  end
+      
   get '/polls' do
     @polls = Poll.all
     erb :get_polls
