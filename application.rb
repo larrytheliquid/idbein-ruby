@@ -22,7 +22,6 @@ class Application < Sinatra::Base
     end
   end
   
-  
   get '/polls/new' do
     erb :get_polls_new
   end
