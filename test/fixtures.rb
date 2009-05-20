@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'application'
-require 'spec/factory'
+require 'test/factory'
 include Factory
 
 SERVER.database(COUCHDB).recreate!

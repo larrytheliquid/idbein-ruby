@@ -6,7 +6,7 @@ require 'rack/test'
 require 'webrat'
 
 require 'application'
-require 'spec/factory'
+require 'test/factory'
 
 Application.set :environment, :test
 Application.set :run, false
