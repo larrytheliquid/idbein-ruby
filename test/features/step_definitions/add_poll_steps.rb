@@ -1,11 +1,3 @@
-Given /^I am logged in$/ do
-  new_user.save
-end
-
-When /^I go to the polls list$/ do
-  visit "#{APP}/polls"
-end
-
 When /^I try to add a new poll$/ do
   click_link 'Add a Poll'
 end

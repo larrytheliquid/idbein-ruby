@@ -13,6 +13,13 @@ end
 class MechanizeWorld < Webrat::MechanizeSession
   include Webrat::Matchers
   include Factory
+  include Application::Helpers
+end
+
+class String
+  def strip_html
+    gsub(/<\/?[^>]*>/, "")
+  end
 end
 
 World do
