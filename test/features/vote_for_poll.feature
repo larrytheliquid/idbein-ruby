@@ -10,3 +10,12 @@ Feature: voter votes for a poll
     And I vote for the poll
     And I go to the polls list
     Then the number of votes for it should be incremented
+
+  Scenario: voting for a poll that I have already voted for
+    Given I am logged in
+    And a candidate previously created a poll
+    And I previously voted for the poll
+    When I go to the polls list
+    And I vote for the poll
+    And I go to the polls list
+    Then the number of votes for it should not be incremented
