@@ -1,18 +1,22 @@
 Given /^I am logged in$/ do
-  # TODO: implement login 
+  new_user.save
+end
+
+When /^I go to the polls list$/ do
+  visit "#{APP}/polls"
+end
+
+When /^I try to add a new poll$/ do
+  click_link 'Add a Poll'
 end
 
 When /^I fill out and submit all required fields$/ do
-  post '/polls', {:poll => poll_attributes(:title => 'Find me')}
-  @redirect = last_response
-  follow_redirect!
-end
-
-Then /^I should get redirected to the polls list$/ do
-  @redirect.status.should == 302
-  @redirect.headers['location'].should == '/polls'
+  fill_in 'Title', :with => 'idbein beta invite'
+  fill_in 'Description', :with => 'Want one? vote up while you have the chance!'
+  fill_in 'Threshold', :with => '200'
+  click_button 'Add Poll'
 end
 
 Then /^my poll should show up in the polls list$/ do
-  last_response.should contain('Find me')
+  response.should contain(CGI.escape 'idbein beta invite')
 end

@@ -4,6 +4,7 @@ Feature: candidate creates a poll
   So that voters can elect me to send them a message
     Scenario: creating a valid poll
       Given I am logged in
-      When I fill out and submit all required fields
-      Then I should get redirected to the polls list
-      And my poll should show up in the polls list
+      When I go to the polls list
+      And I try to add a new poll
+      And I fill out and submit all required fields
+      Then my poll should show up in the polls list
