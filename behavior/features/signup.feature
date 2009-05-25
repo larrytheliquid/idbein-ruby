@@ -1,9 +1,9 @@
-Feature: signing up for idbe.in
+Feature: Visitor signs up for idbe.in
   As a visitor
   I want to sign up
   So that I can log in
 
-  Scenario: signing up with valid information
+  Scenario: Valid information
     Given I am not logged in
     When I go to the polls list
     And I try to sign up
@@ -11,7 +11,7 @@ Feature: signing up for idbe.in
     Then I should be redirected to the polls list
     And I should be logged in
 
-  Scenario: signing up with invalid information
+  Scenario: Invalid information
     Given I am not logged in
     When I go to the polls list
     And I try to sign up
