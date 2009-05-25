@@ -80,7 +80,7 @@ Given /^I previously voted for the poll$/ do
   RestClient.put "#{APP}/polls/poll/votes/#{current_user.id}", ''
 end
 
-When /^I vote for the poll$/ do
+When /^I vote for the poll through the API$/ do
   RestClient.put "#{APP}/polls/poll/votes/#{current_user.id}", ''
 end
 
