@@ -2,7 +2,7 @@ When /^I try to add a new poll$/ do
   click_link 'Add a Poll'
 end
 
-When /^I fill out and submit all required fields$/ do
+When /^I submit all required poll fields$/ do
   fill_in 'Title', :with => 'idbein beta invite'
   fill_in 'Description', :with => 'Want one? vote up while you have the chance!'
   fill_in 'Threshold', :with => '200'

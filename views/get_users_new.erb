@@ -1,1 +1,11 @@
-Signup
+<form id="add-user-form" name="add-user" action="/users" method="post">
+  <label for="user_username">Username</label>
+  <input id="user_username" type="text" name="user[username]" />
+
+  <br/>
+  <label for="user_email">Email</label>
+  <input id="user_email" type="text" name="user[email]" />
+  
+  <br/>
+  <input type="submit" name="submit" value="Submit" />
+</form>

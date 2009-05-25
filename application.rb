@@ -9,6 +9,9 @@ class Application < Sinatra::Base
   set :root, File.dirname(__FILE__)
 
   module Helpers
+    include Rack::Utils
+    alias_method :h, :escape_html
+    
     def partial(page, options={})
       erb :"_#{page}", options.merge(:layout => false)
     end

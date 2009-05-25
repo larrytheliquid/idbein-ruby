@@ -7,5 +7,5 @@ Feature: candidate creates a poll
     Given I am logged in
     When I go to the polls list
     And I try to add a new poll
-    And I fill out and submit all required fields
+    And I submit all required poll fields
     Then my poll should show up in the polls list
