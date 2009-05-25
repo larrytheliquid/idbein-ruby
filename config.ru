@@ -1,8 +1,7 @@
+ENV['RACK_ENV'] = 'test' unless ENV['RACK_ENV']
 require 'rubygems'
 require 'sinatra'
-require 'application'
-set :run, false
-set :environment, :development
-set :static, true
+
+require "#{File.dirname(__FILE__)}/application"
 run Application
 
