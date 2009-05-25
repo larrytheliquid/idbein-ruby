@@ -22,10 +22,9 @@ class Rack::ESI
 
     xml.search("esi:include") do |include_element|
       if src = include_element["src"]
-                path_info = src # TODO: Rewrite the URL to allow more
-        # than absolute paths
+        path_info = src                                     # TODO: Rewrite the URL to allow more than absolute paths
         inclusion_env = env.merge("PATH_INFO" => path_info) # TODO: Do something with SCRIPT_NAME/REQUEST_PATH/REQUEST_URI
-        data = process_body(@app.call(inclusion_env)[2]) # FIXME: Check the status
+        data = process_body(@app.call(inclusion_env)[2])    # FIXME: Check the status
         new_element = Hpricot::Text.new(data)
         include_element.parent.replace_child(include_element, new_element)
       else

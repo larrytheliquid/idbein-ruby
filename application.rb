@@ -2,11 +2,13 @@ require 'rubygems'
 require 'sinatra/base'
 require 'couchrest'
 require 'environment'
+require "#{File.dirname(__FILE__)}/middleware/esi"
 Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 
 class Application < Sinatra::Base
   enable :static
   set :root, File.dirname(__FILE__)
+  use Rack::ESI
 
   module Helpers
     include Rack::Utils
@@ -21,13 +23,10 @@ class Application < Sinatra::Base
     end
 
     def voted_fragment(permalink, username)
-      %s{<esi:include src="/polls/#{permalink}/votes/#{username}.fragment"/>}
+      %{<esi:include src="/polls/#{permalink}/votes/#{username}.fragment"/>}
     end
   end
-  
-  helpers do
-    include Helpers
-  end
+  include Helpers
   
   get '/polls/new' do
     @poll = Poll.new
@@ -37,11 +36,6 @@ class Application < Sinatra::Base
   get '/polls' do
     @polls = Poll.by_updated_at
     erb :get_polls
-  end
-
-  get '/polls/:permalink' do
-    @poll = Poll.get(params[:permalink])
-    erb :get_polls_show
   end
 
   post '/polls' do
@@ -56,7 +50,7 @@ class Application < Sinatra::Base
   end  
 
   get '/polls/:permalink/votes/:username.fragment' do
-    @poll = Poll.get params[:permalink]
+    @poll = Poll.get CGI.escape params[:permalink]
     vote = Vote.new(:user_id => params[:username],
                     :poll_id => params[:permalink])
     @voted = Vote.get(vote.vote_hash) rescue false

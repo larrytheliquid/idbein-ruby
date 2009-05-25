@@ -3,8 +3,7 @@
     <div id="cb_v_<%= poll.id %>" class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div>
   </div>
   <div class="checkbox">
-    <div id="cb_i_<%= poll.id %>" class="novote"></div>
-    <div id="cb_m_<%= poll.id %>" class="vote-desc"><a href="aoighe">I'd be in</a></div>
+    <%= voted_fragment(poll.id, current_user.id) %>
   </div>
   <div class="info">
     <div class="title"><%=h poll.title %></div>

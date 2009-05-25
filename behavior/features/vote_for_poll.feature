@@ -3,17 +3,28 @@ Feature: Voter votes for a poll
   I want to vote for a poll
   So that I can receive an update from its candidate
 
-  Scenario: Have voted for poll
+  Scenario: Viewing a poll I have not voted for
     Given I am logged in
     And a candidate previously created a poll
-    When I vote for the poll
-    And I go to the polls list
-    Then the number of votes for it should be incremented
+    When I go to the polls list
+    Then there should be a not-voted icon
+    And the number of votes for it should be 0
 
-  Scenario: Have not voted for poll
+  Scenario: Voting for a poll I have not voted for yet
+    Given I am logged in
+    And a candidate previously created a poll
+    When I go to the polls list
+    And I vote for the poll
+    And I go to the polls list
+    Then there should be a voted icon
+    And the number of votes for it should be 1
+
+  Scenario: Voting for a poll I have already voted for
     Given I am logged in
     And a candidate previously created a poll
     And I previously voted for the poll
-    When I vote for the poll
+    When I go to the polls list
+    And I vote for the poll
     And I go to the polls list
-    Then the number of votes for it should not be incremented
+    Then there should be a voted icon
+    And the number of votes for it should be 1

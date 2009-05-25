@@ -39,7 +39,7 @@ end
 # POLLS
 
 Given /^I am logged in$/ do
-  new_user.save
+  new_user.save!
 end
 
 When /^I go to the polls list$/ do
@@ -84,10 +84,18 @@ When /^I vote for the poll$/ do
   RestClient.put "#{APP}/polls/poll/votes/#{current_user.id}", ''
 end
 
-Then /^the number of votes for it should be incremented$/ do
+Then /^there should be a not\-voted icon$/ do
+  response.should have_selector(".novote")
+end
+
+Then /^there should be a voted icon$/ do
+  response.should have_selector(".voted")
+end
+
+Then /^the number of votes for it should be 1$/ do
   response.body.strip_html.should contain('1/5')
 end
 
-Then /^the number of votes for it should not be incremented$/ do
-  response.body.strip_html.should contain('1/5')
+Then /^the number of votes for it should be 0$/ do
+  response.body.strip_html.should contain('0/5')
 end
