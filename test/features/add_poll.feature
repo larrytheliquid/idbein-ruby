@@ -8,4 +8,5 @@ Feature: candidate creates a poll
     When I go to the polls list
     And I try to add a new poll
     And I submit all required poll fields
-    Then my poll should show up in the polls list
+    Then I should be redirected to the polls list
+    And my poll should be in the polls list

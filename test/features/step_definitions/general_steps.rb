@@ -1,3 +1,44 @@
+# SIGNUP
+
+Given /^I am not logged in$/ do
+  # noop
+end
+
+When /^I try to signup$/ do
+  click_link 'Signup'
+end
+
+When /^I submit valid user data$/ do
+  fill_in 'Username', :with => 'larrytheliquid'
+  fill_in 'Email', :with => 'larrytheliquid@gmail.com'
+  click_button 'Submit'
+end
+
+When /^I submit invalid user data$/ do
+  fill_in 'Username', :with => 'larrytheliquid'
+  click_button 'Submit'
+end
+
+Then /^I should be redirected to the polls list$/ do
+  response.uri.request_uri.should == '/polls'
+end
+
+Then /^I should be shown validation errors$/ do
+  response.should have_selector(".error")
+end
+
+Then /^I should be logged in$/ do
+  response.should contain(h 'Hello larrytheliquid!')
+  response.should_not contain('Signup')
+end
+
+Then /^I should not be logged in$/ do
+  response.should_not contain(h 'Hello larrytheliquid!')
+  response.should contain('Signup')
+end
+
+# POLLS
+
 Given /^I am logged in$/ do
   new_user.save
 end
@@ -17,31 +58,11 @@ When /^I submit all required poll fields$/ do
   click_button 'Add Poll'
 end
 
-Then /^my poll should show up in the polls list$/ do
+Then /^my poll should be in the polls list$/ do
   response.should contain(CGI.escape 'idbein beta invite')
 end
 
-Given /^I am not logged in$/ do
-  # noop
-end
-
-When /^I try to signup$/ do
-  click_link 'Signup'
-end
-
-When /^I submit all required user fields$/ do
-  fill_in 'Username', :with => 'larrytheliquid'
-  fill_in 'Email', :with => 'larrytheliquid@gmail.com'
-  click_button 'Submit'
-end
-
-Then /^I should be redirected to the polls list$/ do
-  response.uri.request_uri.should == '/polls'
-end
-
-Then /^I should be logged in$/ do
-  response.should contain(h 'Hello larrytheliquid!')
-end
+# VOTING
 
 Given /^a candidate previously created a poll$/ do
   new_poll(:title => 'poll', :threshold => 5).save

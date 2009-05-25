@@ -66,11 +66,17 @@ class Application < Sinatra::Base
   end
 
   get '/users/new' do
+    @user = User.new
     erb :get_users_new
   end
 
   post '/users' do
-    User.new(params[:user]).save!
-    redirect '/polls'
+    @user = User.new(params[:user])
+    if @user.valid?
+      @user.save!
+      redirect '/polls'
+    else
+      erb :get_users_new
+    end
   end
 end

@@ -1,3 +1,7 @@
+<% @user.errors.each do |error| %>
+  <div class="error"><%= error %></div>
+<% end %>
+
 <form id="add-user-form" name="add-user" action="/users" method="post">
   <label for="user_username">Username</label>
   <input id="user_username" type="text" name="user[username]" />

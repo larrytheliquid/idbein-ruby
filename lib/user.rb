@@ -7,7 +7,8 @@ class User < CouchRest::ExtendedDocument
   property :email
   timestamps!
 
-  validates_present :username, :email
+  validates_present :username
+  validates_present :email  
 
   def vote!(poll)
     vote = Vote.new(:user_id => self.id, :poll_id => poll.id)
