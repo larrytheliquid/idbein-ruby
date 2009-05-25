@@ -10,7 +10,8 @@ class Poll < CouchRest::ExtendedDocument
   property :votes_count
   timestamps!
 
-  validates_present :title, :user_id
+  validates_present :title
+  validates_present :user_id
 
   view_by :updated_at, :descending => true
 

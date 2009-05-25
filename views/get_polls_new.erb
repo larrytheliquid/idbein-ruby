@@ -1,3 +1,7 @@
+<% @poll.errors.each do |error| %>
+  <div class="error"><%= error %></div>
+<% end %>
+
 <form id="add-poll-form" name="add-poll" action="/polls" method="post">
   <label for="poll_title">Title</label>
   <input id="poll_title" type="text" name="poll[title]" />

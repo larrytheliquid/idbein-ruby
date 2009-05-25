@@ -18,9 +18,9 @@ body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; backgro
 #page #faq p { font-weight: bold; margin-top: 0; color: #717171; }
 #page #content { float: right; width: 75%; margin: 0 auto; margin-top: 50px; }
 #page #content #add-poll { font-size: 20pt; font-weight: bold; }
-#page #content .item { overflow: hidden; width: 600px; height: 125px; background-color: #dddddd; margin-bottom: 10px; padding: 10px; border-bottom: dotted thin gray; }
+#page #content .poll { overflow: hidden; width: 600px; height: 125px; background-color: #dddddd; margin-bottom: 10px; padding: 10px; border-bottom: dotted thin gray; }
 					
-/** item classes: **/
+/** poll classes: **/
 
 .votes { float: left; font-size: 25pt; width: 100px; height: 125px; }
 .votes .current-votes { float: left; font-weight: bold; margin-top: 20px; font-size: 35pt; color: #6d389b; }

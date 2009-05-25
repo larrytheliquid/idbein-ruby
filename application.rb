@@ -30,6 +30,7 @@ class Application < Sinatra::Base
   end
   
   get '/polls/new' do
+    @poll = Poll.new
     erb :get_polls_new
   end
   
@@ -44,10 +45,14 @@ class Application < Sinatra::Base
   end
 
   post '/polls' do
-    poll = Poll.new params[:poll]
-    poll.user_id = current_user.id
-    poll.save!
-    redirect '/polls'
+    @poll = Poll.new params[:poll]
+    @poll.user_id = current_user.id
+    if @poll.valid?
+      @poll.save!
+      redirect '/polls'
+    else
+      erb :get_polls_new
+    end
   end  
 
   get '/polls/:permalink/votes/:username.fragment' do

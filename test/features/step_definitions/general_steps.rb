@@ -4,7 +4,7 @@ Given /^I am not logged in$/ do
   # noop
 end
 
-When /^I try to sign up$/ do
+When /^I try to signup$/ do
   click_link 'Signup'
 end
 
@@ -15,6 +15,7 @@ When /^I submit valid user data$/ do
 end
 
 When /^I submit invalid user data$/ do
+  fill_in 'Username', :with => 'larrytheliquid'
   click_button 'Submit'
 end
 
@@ -57,17 +58,8 @@ When /^I submit valid poll data$/ do
   click_button 'Add Poll'
 end
 
-When /^I submit invalid poll data$/ do
-  click_button 'Add Poll'
-end
-
 Then /^my poll should be in the polls list$/ do
-  response.should have_selector('.poll')  
   response.should contain(CGI.escape 'idbein beta invite')
-end
-
-Then /^my poll should not be in the polls list$/ do
-  response.should_not have_selector('.poll')
 end
 
 # VOTING
