@@ -1,4 +1,4 @@
-Feature: Visitor signs up for idbe.in
+Feature: Visitor signs up
   As a visitor
   I want to sign up
   So that I can log in
