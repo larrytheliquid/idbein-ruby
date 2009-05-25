@@ -3,7 +3,7 @@
     <div id="cb_v_<%= poll.id %>" class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div>
   </div>
   <div class="checkbox">
-    <%= voted_fragment(poll.id, current_user.id) %>
+    <%= esi_include "/polls/#{poll.id}/votes/#{current_user.id}" %>
   </div>
   <div class="info">
     <div class="title"><%=h poll.title %></div>

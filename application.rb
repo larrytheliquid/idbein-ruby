@@ -22,8 +22,8 @@ class Application < Sinatra::Base
       User.all.last
     end
 
-    def voted_fragment(permalink, username)
-      %{<esi:include src="/polls/#{permalink}/votes/#{username}.fragment"/>}
+    def esi_include(path)
+      %{<esi:include src="#{path}.fragment"/>}
     end
   end
   include Helpers
