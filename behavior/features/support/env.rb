@@ -9,18 +9,12 @@ require "#{File.dirname(__FILE__)}/../../factory"
 Webrat.configure do |config|
   config.mode = :selenium
   config.application_port = 9292
+  config.application_environment = :test
   config.application_framework = :sinatra
-end
-
-class String
-  def strip_html
-    gsub(/<\/?[^>]*>/, "")
-  end
 end
 
 World do
   include Webrat::Methods
-  include Webrat::Matchers
   include Webrat::Selenium::Methods
   include Webrat::Selenium::Matchers
   include Factory

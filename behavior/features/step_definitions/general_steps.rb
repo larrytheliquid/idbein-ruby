@@ -93,9 +93,9 @@ Then /^there should be a voted icon$/ do
 end
 
 Then /^the number of votes for it should be 1$/ do
-#   response.body.strip_html.should contain('1/5')
+  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), '1')]") 
 end
 
 Then /^the number of votes for it should be 0$/ do
-#   response.body.strip_html.should contain('0/5')
+  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), '0')]") 
 end
