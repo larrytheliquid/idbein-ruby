@@ -13,16 +13,17 @@ Webrat.configure do |config|
   config.application_framework = :sinatra
 end
 
-World do
-  include Webrat::Methods
-  include Webrat::Selenium::Methods
+class SeleniumWorld < Webrat::SeleniumSession
   include Webrat::Selenium::Matchers
   include Factory
   include Application::Helpers
-  
+end
+
+World do
   Before do
     Sham.reset
     SERVER.database(COUCHDB).recreate! rescue nil
   end
-  After { SERVER.database(COUCHDB).delete! rescue nil } 
+  After { SERVER.database(COUCHDB).delete! rescue nil }
+  SeleniumWorld.new
 end

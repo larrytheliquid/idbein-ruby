@@ -19,7 +19,8 @@ When /^I submit invalid user data$/ do
 end
 
 Then /^I should be redirected to the polls list$/ do
-#   response.current_url.should == '/polls'
+  selenium.wait_for_page_to_load
+  selenium.location.should == "#{APP}/polls"
 end
 
 Then /^I should be shown validation errors$/ do
