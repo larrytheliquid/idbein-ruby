@@ -1,13 +1,26 @@
 require 'faker'
+require 'sham' # via notahat-machinist
+
+Sham.define do
+  title { Faker::Lorem.sentence.chomp('.') }
+  description { Faker::Lorem.paragraph }
+  threshold { rand(100).next }
+  username { Faker::Internet.user_name }
+  email { Faker::Internet.email }
+end
 
 module Factory
   def poll_attributes(attributes={})
-    user = new_user; user.save
-    {:title => Faker::Lorem.sentence.chomp('.'),
-     :user_id => user.id,
-     :description => Faker::Lorem.paragraph,
-     :threshold => rand(10).next
+    result = {
+      :title => Sham.title,
+      :description => Sham.description,
+      :threshold => Sham.threshold
     }.merge(attributes)
+    unless result.has_key? :user_id
+      user = new_user; user.save!
+      result[:user_id] = user.id
+    end
+    result
   end
   
   def new_poll(attributes={})
@@ -15,8 +28,8 @@ module Factory
   end
 
   def user_attributes(attributes={})
-    {:username => Faker::Internet.user_name,
-     :email => Faker::Internet.email
+    {:username => Sham.username,
+     :email => Sham.email
     }.merge(attributes)
   end
   
@@ -25,11 +38,16 @@ module Factory
   end
 
   def vote_attributes(attributes={})
-    user = new_user; user.save
-    poll = new_poll; poll.save
-    {:user_id => user.id,
-     :poll_id => poll.id
-    }.merge(attributes)
+    result = Hash.new.merge(attributes)
+    unless result.has_key? :user_id
+      user = new_user; user.save!
+      result[:user_id] = user.id
+    end
+    unless result.has_key? :poll_id
+      poll = new_poll; poll.save!
+      result[:poll_id] = poll.id
+    end
+    result
   end
   
   def new_vote(attributes={})
