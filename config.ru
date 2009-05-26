@@ -1,4 +1,3 @@
-ENV['RACK_ENV'] = 'test' unless ENV['RACK_ENV']
 require 'rubygems'
 require 'sinatra'
 

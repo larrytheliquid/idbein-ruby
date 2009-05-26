@@ -50,7 +50,7 @@ class Application < Sinatra::Base
   end  
 
   get '/polls/:permalink/votes/:username.fragment' do
-    @poll = Poll.get CGI.escape(params[:permalink])
+    @poll = Poll.get params[:permalink]
     vote = Vote.new(:user_id => params[:username],
                     :poll_id => params[:permalink])
     @voted = Vote.get(vote.vote_hash) rescue false

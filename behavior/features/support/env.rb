@@ -1,4 +1,3 @@
-ENV['RACK_ENV'] = 'test' unless ENV['RACK_ENV']
 require 'rubygems'
 require 'sinatra'
 require 'spec'
@@ -8,7 +7,9 @@ require "#{File.dirname(__FILE__)}/../../../application"
 require "#{File.dirname(__FILE__)}/../../factory"
 
 Webrat.configure do |config|
-  config.mode = :mechanize
+  config.mode = :selenium
+  config.application_port = 9292
+  config.application_framework = :sinatra
 end
 
 class String
@@ -17,17 +18,17 @@ class String
   end
 end
 
-class MechanizeWorld < Webrat::MechanizeSession
+World do
+  include Webrat::Methods
   include Webrat::Matchers
+  include Webrat::Selenium::Methods
+  include Webrat::Selenium::Matchers
   include Factory
   include Application::Helpers
-end
-
-World do
+  
   Before do
     Sham.reset
     SERVER.database(COUCHDB).recreate! rescue nil
   end
   After { SERVER.database(COUCHDB).delete! rescue nil } 
-  MechanizeWorld.new
 end
