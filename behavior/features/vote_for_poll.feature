@@ -10,7 +10,7 @@ Feature: Voter votes for a poll
     Then there should be a not-voted icon
     And the number of votes for it should be 0
 
-  Scenario: Voting for a poll I have not voted for yet
+  Scenario: Voting for a poll I have not voted for yet with persistence
     Given I am logged in
     And a candidate previously created a poll
     When I go to the polls list

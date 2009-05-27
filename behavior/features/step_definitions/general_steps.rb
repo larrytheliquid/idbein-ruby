@@ -82,7 +82,7 @@ Given /^I previously voted for the poll$/ do
 end
 
 When /^I vote for the poll$/ do
-  RestClient.put "#{APP}/polls/poll/votes/#{current_user.id}", ''
+  click_link 'poll'
 end
 
 Then /^there should be a not\-voted icon$/ do
@@ -94,9 +94,9 @@ Then /^there should be a voted icon$/ do
 end
 
 Then /^the number of votes for it should be 1$/ do
-  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), '1')]") 
+  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), 1)]") 
 end
 
 Then /^the number of votes for it should be 0$/ do
-  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), '0')]") 
+  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), 0)]") 
 end
