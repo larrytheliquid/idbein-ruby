@@ -2,7 +2,7 @@ require 'faker'
 require 'sham' # via notahat-machinist
 
 Sham.define do
-  title { Faker::Lorem.sentence.chomp('.') }
+  title { Faker::Company.catch_phrase.chomp('.') }
   description { Faker::Lorem.paragraph }
   threshold { rand(100).next }
   username { Faker::Internet.user_name }
