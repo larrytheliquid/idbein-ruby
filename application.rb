@@ -8,6 +8,7 @@ Dir.glob(File.join(File.dirname(__FILE__), 'lib/*.rb')).each {|f| require f }
 class Application < Sinatra::Base
   enable :static
   set :root, File.dirname(__FILE__)
+  enable :sessions
   use Rack::ESI
 
   module Helpers
@@ -19,7 +20,8 @@ class Application < Sinatra::Base
     end
 
     def current_user
-      User.all.last
+      return @current_user if defined? @current_user
+      @current_user = User.get(session[:username]) rescue nil
     end
 
     def esi_include(path)
@@ -47,7 +49,7 @@ class Application < Sinatra::Base
     else
       erb :get_polls_new
     end
-  end  
+  end
 
   get '/polls/:permalink/votes/:username.fragment' do
     @poll = Poll.get params[:permalink]
@@ -73,9 +75,32 @@ class Application < Sinatra::Base
     @user = User.new(params[:user])
     if @user.valid?
       @user.save!
+      session[:username] = @user.username
       redirect '/polls'
     else
       erb :get_users_new
+    end
+  end
+
+  get '/sessions/new' do
+    erb :get_sessions_new
+  end
+
+  get '/sessions/destroy' do
+    session.clear
+    redirect '/polls'
+  end
+
+  get '/freshstart' do
+    session.clear
+  end
+
+  post '/sessions' do
+    if (User.get(params[:session][:username]) rescue false)
+      session[:username] = params[:session][:username]
+      redirect '/polls'
+    else
+      erb :get_sessions_new
     end
   end
 end

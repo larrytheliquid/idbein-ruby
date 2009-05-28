@@ -4,7 +4,6 @@ Feature: Visitor signs up
   So that I can log in
 
   Scenario: Valid information
-    Given I am not logged in
     When I go to the polls list
     And I try to sign up
     And I submit valid user data
@@ -12,7 +11,6 @@ Feature: Visitor signs up
     And I should be logged in
 
   Scenario: Invalid information
-    Given I am not logged in
     When I go to the polls list
     And I try to sign up
     And I submit invalid user data

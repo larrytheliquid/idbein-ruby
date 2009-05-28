@@ -26,9 +26,15 @@
           <li>
             <%=h "Hello #{current_user.username}!" %>
           </li>
+          <li>
+            <a href="/sessions/destroy">Logout</a>
+          </li>
         <% else %>
           <li>
             <a href="/users/new">Signup</a>
+          </li>
+          <li>
+            <a href="/sessions/new">Login</a>
           </li>
         <% end %>
       </ul>

@@ -23,7 +23,12 @@ World do
   Before do
     Sham.reset
     SERVER.database(COUCHDB).recreate! rescue nil
+    5.times { new_user.save! }
+    @me = new_user
   end
-  After { SERVER.database(COUCHDB).delete! rescue nil }
+  After do
+    SERVER.database(COUCHDB).delete! rescue nil
+    visit '/freshstart'
+  end
   SeleniumWorld.new
 end

@@ -4,7 +4,8 @@ Feature: Candidate adds a poll
   So that voters can elect me to send them a message
 
   Scenario: Valid information
-    Given I am logged in
+    Given I have signed up
+    And I am logged in
     When I go to the polls list
     And I try to add a new poll
     And I submit valid poll data
@@ -12,7 +13,8 @@ Feature: Candidate adds a poll
     And my poll should be in the polls list
 
   Scenario: Invalid information
-    Given I am logged in
+    Given I have signed up
+    And I am logged in
     When I go to the polls list
     And I try to add a new poll
     And I submit invalid poll data
