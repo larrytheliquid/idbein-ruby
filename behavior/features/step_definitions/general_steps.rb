@@ -100,9 +100,7 @@ end
 # VOTING
 
 Given /^a candidate previously created a poll$/ do
-  # TODO: Get rid of this title stub when webrat-selenium can handle
-  # clicking on links by anchor id
-  @poll = new_poll(:title => 'poll')
+  @poll = new_poll
   @poll.save!
 end
 
