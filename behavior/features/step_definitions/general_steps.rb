@@ -4,14 +4,14 @@ When /^I try to sign up$/ do
   click_link 'Signup'
 end
 
-When /^I submit valid user data$/ do
-  # try assigning @me here so it will work with polls too
+When /^I submit valid account info$/ do
+  @me = new_user
   fill_in 'Username', :with => @me.username
   fill_in 'Email', :with => @me.email
   click_button 'Submit'
 end
 
-When /^I submit invalid user data$/ do
+When /^I submit invalid account info$/ do
   click_button 'Submit'
 end
 
@@ -38,6 +38,7 @@ end
 # LOGIN
 
 Given /^I have signed up$/ do
+  @me = new_user
   @me.save!
 end
 

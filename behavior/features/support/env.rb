@@ -24,7 +24,6 @@ World do
     Sham.reset
     SERVER.database(COUCHDB).recreate! rescue nil
     5.times { new_user.save! }
-    @me = new_user
   end
   After do
     SERVER.database(COUCHDB).delete! rescue nil
