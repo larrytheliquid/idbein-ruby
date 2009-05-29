@@ -77,9 +77,10 @@ When /^I try to add a new poll$/ do
 end
 
 When /^I submit valid poll data$/ do
-  fill_in 'Title', :with => 'idbein beta invite'
-  fill_in 'Description', :with => 'Want one? vote up while you have the chance!'
-  fill_in 'Threshold', :with => '200'
+  @my_poll = new_poll
+  fill_in 'Title', :with => @my_poll.title
+  fill_in 'Description', :with => @my_poll.description
+  fill_in 'Threshold', :with => @my_poll.threshold
   click_button 'Add Poll'
 end
 
@@ -89,7 +90,7 @@ end
 
 Then /^my poll should be in the polls list$/ do
   response.should have_selector('.poll')  
-  response.should contain('idbein beta invite')
+  response.should contain(h @my_poll.description)
 end
 
 Then /^my poll should not be in the polls list$/ do
@@ -99,15 +100,18 @@ end
 # VOTING
 
 Given /^a candidate previously created a poll$/ do
-  new_poll(:title => 'poll', :threshold => 5).save!
+  # TODO: Get rid of this title stub when webrat-selenium can handle
+  # clicking on links by anchor id
+  @poll = new_poll(:title => 'poll')
+  @poll.save!
 end
 
 Given /^I previously voted for the poll$/ do
-  RestClient.put "#{APP}/polls/poll/votes/#{@me.id}", ''
+  RestClient.put "#{APP}/polls/#{@poll.id}/votes/#{@me.id}", ''
 end
 
 When /^I vote for the poll$/ do
-  click_link 'poll'
+  click_link @poll.id
 end
 
 Then /^there should be a not\-voted icon$/ do
