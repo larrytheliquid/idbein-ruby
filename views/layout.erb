@@ -24,7 +24,7 @@
             <a href="#">Your Messages</a>
           </li>
           <li>
-            <%=h "Hello #{current_user.username}!" %>
+            <span id="greeting"><%=h "Hello #{current_user.username}!" %></span>
           </li>
           <li>
             <a href="/sessions/destroy">Logout</a>

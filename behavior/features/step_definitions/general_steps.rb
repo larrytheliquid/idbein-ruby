@@ -5,6 +5,7 @@ When /^I try to sign up$/ do
 end
 
 When /^I submit valid user data$/ do
+  # try assigning @me here so it will work with polls too
   fill_in 'Username', :with => @me.username
   fill_in 'Email', :with => @me.email
   click_button 'Submit'
@@ -24,12 +25,13 @@ Then /^I should be shown validation errors$/ do
 end
 
 Then /^I should be logged in$/ do
-  response.should contain(h "Hello #{@me.username}!")
+  greeting = h "Hello #{@me.username}!"
+  response.should have_xpath(".//*[@id='greeting' and text()='#{greeting}']") 
   response.should_not contain('Signup')
 end
 
 Then /^I should not be logged in$/ do
-  response.should_not contain(h "Hello #{@me.username}!")  
+  response.should_not have_selector('#greeting')
   response.should contain('Signup')
 end
 
@@ -116,9 +118,9 @@ Then /^there should be a voted icon$/ do
 end
 
 Then /^the number of votes for it should be 1$/ do
-  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), 1)]") 
+  response.should have_xpath(".//*[@class='current-votes' and text()='1']") 
 end
 
 Then /^the number of votes for it should be 0$/ do
-  response.should have_xpath(".//div[@class = 'current-votes' and contains(text(), 0)]") 
+  response.should have_xpath(".//*[@class='current-votes' and text()='0']") 
 end
