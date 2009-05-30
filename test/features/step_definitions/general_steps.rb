@@ -97,6 +97,21 @@ Then /^my poll should not be in the polls list$/ do
   response.should_not have_selector('.poll')
 end
 
+# POLL DETAILS
+
+When /^I try to view a poll\'s details$/ do
+  click_link @poll.title
+end
+
+Then /^the poll\'s title should be displayed$/ do
+  response.should contain(h @poll.title)
+end
+
+Then /^the poll\'s description should be displayed$/ do
+  response.should contain(h @poll.description)
+end
+
+
 # VOTING
 
 Given /^a candidate previously created a poll$/ do
