@@ -19,15 +19,15 @@ class SeleniumWorld < Webrat::SeleniumSession
   include Application::Helpers
 end
 
-World do
-  Before do
-    Sham.reset
-    SERVER.database(COUCHDB).recreate! rescue nil
-    5.times { new_user.save! }
-  end
-  After do
-    SERVER.database(COUCHDB).delete! rescue nil
-    visit '/freshstart'
-  end
-  SeleniumWorld.new
+Before do
+  Sham.reset
+  SERVER.database(COUCHDB).recreate! rescue nil
+  5.times { new_user.save! }
 end
+
+After do
+  SERVER.database(COUCHDB).delete! rescue nil
+  visit '/freshstart'
+end
+
+World { SeleniumWorld.new }
