@@ -8,7 +8,7 @@ Feature: User logs in
     When I go to the polls list
     And I try to login
     And I submit valid credentials
-    Then I should be redirected to the polls list
+    Then I should be on the polls list
     And I should be logged in
 
   Scenario: Visitor is not a user

@@ -15,7 +15,7 @@ When /^I submit invalid account info$/ do
   click_button 'Submit'
 end
 
-Then /^I should be redirected to the polls list$/ do
+Then /^I should be on the polls list$/ do
   selenium.wait_for_page_to_load
   selenium.location.should == "#{APP}/polls"
 end
@@ -77,7 +77,7 @@ When /^I try to add a new poll$/ do
 end
 
 When /^I submit valid poll data$/ do
-  @my_poll = new_poll
+  @my_poll = new_poll(:user_id => nil)
   fill_in 'Title', :with => @my_poll.title
   fill_in 'Description', :with => @my_poll.description
   fill_in 'Threshold', :with => @my_poll.threshold
@@ -96,21 +96,6 @@ end
 Then /^my poll should not be in the polls list$/ do
   response.should_not have_selector('.poll')
 end
-
-# POLL DETAILS
-
-When /^I try to view a poll\'s details$/ do
-  click_link @poll.title
-end
-
-Then /^the poll\'s title should be displayed$/ do
-  response.should contain(h @poll.title)
-end
-
-Then /^the poll\'s description should be displayed$/ do
-  response.should contain(h @poll.description)
-end
-
 
 # VOTING
 

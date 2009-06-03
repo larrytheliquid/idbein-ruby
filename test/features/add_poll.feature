@@ -9,7 +9,7 @@ Feature: Candidate adds a poll
     When I go to the polls list
     And I try to add a new poll
     And I submit valid poll data
-    Then I should be redirected to the polls list
+    Then I should be on the polls list
     And my poll should be in the polls list
 
   Scenario: Invalid information
