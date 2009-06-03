@@ -1,4 +1,4 @@
-<div class="poll">
+<div class="poll" onmouseover="hilite(this);" onmouseout="unhilite(this);">
   <div class="votes">
     <div id="cb_v_<%= poll.id %>" class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div>
   </div>
