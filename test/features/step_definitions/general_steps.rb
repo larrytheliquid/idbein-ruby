@@ -57,8 +57,7 @@ When /^I submit fake credentials$/ do
 end
 
 Given /^I am logged in$/ do
-  When 'I go to the polls list'
-  When 'I try to login'
+  visit '/sessions/new'
   When 'I submit valid credentials'
 end
 
@@ -109,7 +108,7 @@ Given /^I previously voted for the poll$/ do
 end
 
 When /^I vote for the poll$/ do
-  click_link @poll.id
+  click_link "checkbox-#{@poll.id}"
 end
 
 Then /^there should be a not\-voted icon$/ do

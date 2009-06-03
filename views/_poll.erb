@@ -1,15 +1,13 @@
-<a href="#" class="poll" id="<%= poll.id %>"
-<% if current_user %>
-  onclick="handleClick('<%= poll.id %>', '<%= current_user.id %>');"
-  onmouseover="hilite($('#<%= poll.id %>')[0]);"
-  onmouseout="unhilite($('#<%= poll.id %>')[0]);"
-<% end %>>
+<div class="poll">
   <div class="votes">
     <div id="cb_v_<%= poll.id %>" class="current-votes"><%= poll.votes_count %></div><div class="divider">/</div><div class="threshold"><%= poll.threshold %></div>
   </div>
-  <div class="checkbox">
+  <a href="#" class="checkbox" id="checkbox-<%= poll.id %>"
+    <% if current_user %>
+      onclick="handleClick('<%= poll.id %>', '<%= current_user.id %>');"
+    <% end %>>
     <%= esi_include "/polls/#{poll.id}/votes/#{current_user.id}" %>
-  </div>
+  </a>
   <div class="info">
     <div class="title"><%=h poll.title %></div>
     <div class="misc-info">
@@ -18,4 +16,4 @@
     </div>
     <div class="about"><%= poll.description %></div>
   </div>
-</a>
+</div>
