@@ -18,10 +18,10 @@
         </li>
         <% if current_user %>
           <li>
-            <a href="#">Your Polls</a>
+            <a href="<%= "/users/#{current_user.id}/polls" %>">My Polls</a>
           </li>
           <li>
-            <a href="#">Your Messages</a>
+            <a href="#">My Messages</a>
           </li>
           <li>
             <span id="greeting"><%=h "Hello #{current_user.username}!" %></span>

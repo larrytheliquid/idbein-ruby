@@ -71,6 +71,11 @@ class Application < Sinatra::Base
     erb :get_users_new
   end
 
+  get '/users/:username/polls' do
+    @polls = Poll.by_user_id :key => params[:username]
+    erb :get_users_polls
+  end
+
   post '/users' do
     @user = User.new(params[:user])
     if @user.valid?

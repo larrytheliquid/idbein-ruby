@@ -62,3 +62,28 @@ describe Poll, '.by_updated_at' do
     Poll.by_updated_at.first.should == Poll.get(recent.id)
   end
 end
+
+describe Poll, '.by_user_id' do
+  before do
+    @user = new_user
+    @user.save!
+  end
+  
+  it 'should be polls the user has created' do
+    user_poll = new_poll(:user_id => @user.id)
+    user_poll.save!
+    new_poll.save!
+    result = Poll.by_user_id :key => @user.id
+    result.size.should == 1
+    result.first.id.should == user_poll.id
+  end
+  
+  it 'should order by created_at descending' do
+    old = new_poll(:user_id => @user.id); old.save!
+    sleep(1)
+    recent = new_poll(:user_id => @user.id); recent.save!
+    result = Poll.by_user_id :key => @user.id
+    result.size.should == 2
+    result.first.id.should == recent.id
+  end
+end

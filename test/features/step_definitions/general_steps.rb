@@ -126,3 +126,22 @@ end
 Then /^the number of votes for it should be 0$/ do
   response.should have_xpath(".//*[@class='current-votes' and text()='0']") 
 end
+
+# MY POLLS
+
+Given /^I previously created a poll$/ do
+  @my_poll = new_poll(:user_id => @me.id)
+  @my_poll.save!
+end
+
+When /^I try to view my polls$/ do
+  click_link 'My Polls'
+end
+
+Then /^my poll should be listed$/ do
+  response.should contain(h @my_poll.title)
+end
+
+Then /^another candidate\'s poll should not be listed$/ do
+  response.should_not contain(h @poll.title)
+end
