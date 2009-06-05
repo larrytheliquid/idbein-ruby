@@ -1,8 +1,10 @@
+@f
 Feature: Candidate adds a poll
   As a candidate
   I want to create a poll for an offer I have
   So that voters can elect me to send them a message
 
+  @s
   Scenario: Valid information
     Given I have signed up
     And I am logged in

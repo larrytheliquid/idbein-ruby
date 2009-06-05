@@ -1,4 +1,3 @@
-@f
 Feature: Viewing my polls
   As a candidate
   I want to view the polls I have created

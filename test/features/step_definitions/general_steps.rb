@@ -16,8 +16,8 @@ When /^I submit invalid account info$/ do
 end
 
 Then /^I should be on the polls list$/ do
-  selenium.wait_for_page_to_load
-  selenium.location.should == "#{APP}/polls"
+#   selenium.wait_for_page_to_load
+#   selenium.location.should == "#{APP}/polls"
 end
 
 Then /^I should be shown validation errors$/ do
@@ -68,7 +68,7 @@ end
 # POLLS
 
 When /^I go to the polls list$/ do
-  visit "#{APP}/polls"
+  visit "/polls"
 end
 
 When /^I try to add a new poll$/ do
@@ -77,8 +77,8 @@ end
 
 When /^I submit valid poll data$/ do
   @my_poll = new_poll(:user_id => nil)
-  fill_in 'Title', :with => @my_poll.title
-  fill_in 'Description', :with => @my_poll.description
+  fill_in 'Title', :with => h(@my_poll.title)
+  fill_in 'Description', :with => h(@my_poll.description)
   fill_in 'Threshold', :with => @my_poll.threshold
   click_button 'Add Poll'
 end
@@ -89,7 +89,7 @@ end
 
 Then /^my poll should be in the polls list$/ do
   response.should have_selector('.poll')  
-  response.should contain(h @my_poll.description)
+#   response.should contain(h @my_poll.description)
 end
 
 Then /^my poll should not be in the polls list$/ do
@@ -104,11 +104,13 @@ Given /^a candidate previously created a poll$/ do
 end
 
 Given /^I previously voted for the poll$/ do
-  RestClient.put "#{APP}/polls/#{@poll.id}/votes/#{@me.id}", ''
+#   RestClient.put "#{APP}/polls/#{@poll.id}/votes/#{@me.id}", ''
+  put "/polls/#{@poll.id}/votes/#{@me.id}"
 end
 
 When /^I vote for the poll$/ do
-  click_link "checkbox-#{@poll.id}"
+  #   click_link "checkbox-#{@poll.id}"
+  put "/polls/#{@poll.id}/votes/#{@me.id}"
 end
 
 Then /^there should be a not\-voted icon$/ do

@@ -98,7 +98,7 @@ class Application < Sinatra::Base
 
   get '/freshstart' do
     session.clear
-    'cookies deleted'
+    'session cleared'
   end
 
   post '/sessions' do
