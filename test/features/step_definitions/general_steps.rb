@@ -77,8 +77,8 @@ end
 
 When /^I submit valid poll data$/ do
   @my_poll = new_poll(:user_id => nil)
-  fill_in 'Title', :with => h(@my_poll.title)
-  fill_in 'Description', :with => h(@my_poll.description)
+  fill_in 'Title', :with => @my_poll.title
+  fill_in 'Description', :with => @my_poll.description
   fill_in 'Threshold', :with => @my_poll.threshold
   click_button 'Add Poll'
 end
@@ -89,7 +89,7 @@ end
 
 Then /^my poll should be in the polls list$/ do
   response.should have_selector('.poll')  
-#   response.should contain(h @my_poll.description)
+#   response.should contain(@my_poll.description)
 end
 
 Then /^my poll should not be in the polls list$/ do
@@ -141,9 +141,9 @@ When /^I try to view my polls$/ do
 end
 
 Then /^my poll should be listed$/ do
-  response.should contain(h @my_poll.title)
+  response.should contain(@my_poll.title)
 end
 
 Then /^another candidate\'s poll should not be listed$/ do
-  response.should_not contain(h @poll.title)
+  response.should_not contain(@poll.title)
 end
